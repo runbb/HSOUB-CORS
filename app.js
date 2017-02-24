@@ -19,6 +19,6 @@ app.get("/", function (req, res) {
         res.send(data);
     });
 });
-app.listen(80, function () {
+app.listen((process.env.PORT || 80), function () {
     console.log("Server Runner: http://localhost:80/");
 });
