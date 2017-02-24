@@ -4,6 +4,11 @@ var hsoub_1 = require("hsoub");
 var express = require("express");
 var app = express();
 var api = new hsoub_1.io();
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 app.get("/", function (req, res) {
     api.community('webdev', null, function (err, tres) {
         if (err) {
