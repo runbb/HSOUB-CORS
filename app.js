@@ -21,6 +21,7 @@ app.get("/", function (req, res) {
             image: tres.image,
             description: tres.description
         };
+        console.log(data);
         res.send(data);
     });
 });
