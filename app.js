@@ -27,7 +27,7 @@ app.get("/:id", function (req, res) {
             followers: tres.followers,
             image: tres.image,
             description: tres.description,
-            url: tres.url
+            url: tres.url,
         };
         console.log(data);
         res.send(JSON.stringify(data,null,4));
