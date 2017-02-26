@@ -17,6 +17,7 @@ app.use(function (req, res, next) {
 app.get("/:id", function (req, res) {
     res.setHeader("Content-Type", "application/json");
     console.log("new request : " +req.params['id']);
+    try{
     (new (require("hsoub")).io()).community(req.params['id'], null, function (err, tres) {
         if (err) {
             console.log(err);
@@ -32,6 +33,9 @@ app.get("/:id", function (req, res) {
         console.log(data);
         res.send(JSON.stringify(data,null,4));
     });
+    }catch(e){
+        console.log(e);
+    }
 });
 app.listen((process.env.PORT || 80), function () {
     console.log("Server Runner: http://localhost:80/");
