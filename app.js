@@ -2,19 +2,13 @@
 exports.__esModule = true;
 var express = require("express");
 var app = express();
-app.use(function (req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header('Access-Control-Allow-Headers', '*');
-    // intercept OPTIONS method
-    if ('OPTIONS' == req.method) {
-        res.send(200);
-    }
-    else {
-        next();
-    }
-});
-app.get("/:id", function (req, res) {
+var cors = require("cors");
+app.use(cors({
+  "origin": "*",
+  "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+  "preflightContinue": false
+}));
+app.get("/c/:id", function (req, res) {
     res.setHeader("Content-Type", "application/json");
     console.log("new request : " +req.params['id']);
     try{
@@ -32,11 +26,12 @@ app.get("/:id", function (req, res) {
         };
         console.log(data);
         res.send(JSON.stringify(data,null,4));
+        res.end();
     });
     }catch(e){
         console.log(e);
     }
 });
-app.listen((process.env.PORT || 80), function () {
+app.listen((process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 80), process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1", function () {
     console.log("Server Runner: http://localhost:80/");
 });
